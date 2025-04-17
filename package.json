@@ -1,11 +1,17 @@
 {
   "name": "ddn-scripts",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "DDN development scripts for managing multi-peer nodes",
   "main": "index.js",
   "bin": {
     "ddn-scripts": "./bin/run"
   },
+  "files": [
+    "/bin",
+    "/dist",
+    "/npm-shrinkwrap.json",
+    "/oclif.manifest.json"
+  ],
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
@@ -49,11 +55,5 @@
   },
   "engines": {
     "node": ">=14.0.0"
-  },
-  "files": [
-    "/bin",
-    "/dist",
-    "/npm-shrinkwrap.json",
-    "/oclif.manifest.json"
-  ]
+  }
 }
