@@ -1,23 +1,31 @@
-
 # DDN Scripts
 
-DDN开发脚本工具，用于管理 examples 目录下的多节点开发环境。该工具实现了原始 shell 脚本的所有功能，并进行了多项改进。
+DDN development script tool for managing multi-node development environments in the examples directory. This tool implements all the functionality of the original shell scripts with several improvements.
 
+## Features
 
-## 功能
+Compared to the original shell scripts, this tool offers the following improvements:
 
-相比于原始的 shell 脚本，该工具有以下改进：
+1. **Key Distribution**: Automatically distributes delegate keys to different nodes
+2. **P2P Port Configuration**: Properly handles HTTP ports and P2P ports
+3. **Template Directory Copy**: Copies complete configuration and files from template directories
+4. **Health Checks**: Verifies if nodes start successfully and attempts to terminate processes if startup fails
+5. **Multi-Project Support**: Supports both fun-tests and main-tests project types
+6. **Command Line Interface**: Provides a more user-friendly CLI and help information
 
-1. **密钥分发**：自动将受托人密钥分发到不同节点
-2. **P2P 端口配置**：正确处理 HTTP 端口和 P2P 端口
-3. **模板目录复制**：从模板目录复制完整的配置和文件
-4. **健康检查**：检查节点是否成功启动，如果启动失败会尝试终止进程
-5. **多项目支持**：支持 fun-tests 和 main-tests 两种项目类型
-6. **命令行界面**：提供更友好的命令行界面和帮助信息
+## Installation
 
-## 安装
+### Method 1: Using npm or yarn
 
-### 方法一：使用安装脚本
+```bash
+$ npm install ddn-scripts --save
+
+# or
+
+$ yarn add ddn-scripts -D
+```
+
+### Method 2: Using Installation Script
 
 ```bash
 cd scripts/ddn-scripts
@@ -25,14 +33,14 @@ chmod +x install.sh
 ./install.sh
 ```
 
-或者
+Or
 
 ```bash
 cd scripts/ddn-scripts
 npm run install-local
 ```
 
-### 方法二：手动安装
+### Method 3: Manual Installation
 
 ```bash
 cd scripts/ddn-scripts
@@ -41,7 +49,7 @@ npm run build
 npm link
 ```
 
-如果遇到模块加载错误，请尝试以下命令：
+If you encounter module loading errors, try the following commands:
 
 ```bash
 cd scripts/ddn-scripts
@@ -50,46 +58,45 @@ npm run build
 npm link
 ```
 
-## 测试
+## Testing
 
-运行单元测试：
+Run unit tests:
 
 ```bash
 npm test
 ```
 
-运行测试并监视文件变化：
+Run tests with file watching:
 
 ```bash
 npm run test:watch
 ```
 
-生成测试覆盖率报告：
+Generate test coverage report:
 
 ```bash
 npm run test:coverage
 ```
 
-## 配置说明
+## Configuration
 
-### 项目类型
+### Project Types
 
-所有命令都支持 `-t` 参数指定项目类型：
+All commands support the `-t` parameter to specify project type:
 
-- `fun-tests`：娱乐测试网络（默认）
-- `main-tests`：主网测试网络
+- `fun-tests`: Entertainment test network (default)
+- `main-tests`: Mainnet test network
 
-### 端口说明
+### Port Configuration
 
-工具使用两组端口：
+The tool uses two sets of ports:
 
-- HTTP 端口：从 8001 开始，用于 HTTP API 通信
-- P2P 端口：从 9001 开始，用于节点间 P2P 通信
+- HTTP Ports: Starting from 8001, used for HTTP API communication
+- P2P Ports: Starting from 9001, used for P2P communication between nodes
 
-每个节点都有一个 HTTP 端口和一个 P2P 端口。例如，第一个节点的 HTTP 端口是 8001，P2P 端口是 9001。
+Each node has one HTTP port and one P2P port. For example, the first node's HTTP port is 8001 and P2P port is 9001.
 
-
-## 目录结构
+## Directory Structure
 
 ```
 examples/
@@ -110,119 +117,116 @@ examples/
 ├── peer-8002/
 │   └── ...
 └── ...
+```
 
-### 启动多个节点
+### Starting Multiple Nodes
 
 ```bash
-# 启动5个节点（默认）
+# Start 5 nodes (default)
 ddn-scripts peers:start
 
-# 启动3个节点
+# Start 3 nodes
 ddn-scripts peers:start -n 3
 
-# 强制启动（即使端口已被占用）
+# Force start (even if ports are in use)
 ddn-scripts peers:start -f
 
-# 启动单个特定节点
+# Start a specific single node
 ddn-scripts peers:start -p 8001
 
-# 在主网测试项目中启动节点
+# Start nodes in mainnet test project
 ddn-scripts peers:start -t main-tests
 ```
 
-### 停止节点
+### Stopping Nodes
 
 ```bash
-# 停止所有节点
+# Stop all nodes
 ddn-scripts peers:stop
 
-# 停止3个节点
+# Stop 3 nodes
 ddn-scripts peers:stop -n 3
 
-# 强制停止（使用SIGKILL）
+# Force stop (using SIGKILL)
 ddn-scripts peers:stop -f
 
-# 停止单个特定节点
+# Stop a specific single node
 ddn-scripts peers:stop -p 8001
 
-# 停止主网测试项目中的节点
+# Stop nodes in mainnet test project
 ddn-scripts peers:stop -t main-tests
 ```
 
-### 清理节点数据
+### Cleaning Node Data
 
 ```bash
-# 清理所有节点的所有数据
+# Clean all data for all nodes
 ddn-scripts peers:clean
 
-# 只清理数据库
+# Clean only databases
 ddn-scripts peers:clean -c db
 
-# 只清理日志
+# Clean only logs
 ddn-scripts peers:clean -c log
 
-# 清理特定文件
+# Clean specific files
 ddn-scripts peers:clean -f blockchain
 
-# 清理特定节点
+# Clean specific node
 ddn-scripts peers:clean -p 8001
 
-# 清理主网测试项目中的节点数据
+# Clean node data in mainnet test project
 ddn-scripts peers:clean -t main-tests
 ```
 
-### 监控节点
+### Monitoring Nodes
 
 ```bash
-# 监控所有节点
+# Monitor all nodes
 ddn-scripts peers:monitor
 
-# 设置监控间隔（秒）
+# Set monitoring interval (seconds)
 ddn-scripts peers:monitor -i 30
 
-# 启用自动重启
+# Enable auto-restart
 ddn-scripts peers:monitor -r
 
-# 监控主网测试项目中的节点
+# Monitor nodes in mainnet test project
 ddn-scripts peers:monitor -t main-tests
 ```
 
+## Node Inspection
 
-## 节点查看
-
-为了验证上述信息，可以查看节点的日志文件，或者使用 ddn 查看节点状态。
+To verify the above information, you can check the node log files or use ddn to view node status.
 
 ```sh
-# 查看节点日志
+# View node logs
 $ tail -f ./logs/main.log
 $ tail -f ./logs/debug.log
 $ tail -f ./logs/dvm.log
 
-# 查看节点状态
+# View node status
 $ ddn d peerStat -H 127.0.0.1 -P 8001
 $ ddn d peerStat -H 117.78.45.44 -P 8000 -M
 ```
 
-查看浏览器 http://127.0.0.1:8001/api/blocks/getHeight
+View in browser: http://127.0.0.1:8001/api/blocks/getHeight
 
-
-## 开发
+## Development
 
 ```bash
-# 构建
+# Build
 npm run build
 
-# 运行测试
+# Run tests
 npm test
 ```
 
 ## FAQ
 
-1. 如果出现 `Error: listen EADDRINUSE: address already in use :::8001` 错误，说明端口已经被占用，需要修改端口号。
-2. 如果出现 Sandbox is not ready 错误，最可能是数据库初始化中出现问题，拷贝一个 blockchain.db 过来即可。
+1. If you encounter `Error: listen EADDRINUSE: address already in use :::8001`, it means the port is already in use and you need to change the port number.
+2. If you encounter "Sandbox is not ready" error, it's most likely due to database initialization issues. Copying a blockchain.db file should resolve this.
 
+## License
 
-## 许可证
-
-MIT
-
+MIT 
