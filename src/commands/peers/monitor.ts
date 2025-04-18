@@ -6,10 +6,10 @@ export default class PeersMonitor extends BaseCommand {
   static description = '监控多个DDN节点的状态'
 
   static examples = [
-    '$ ddn-scripts peers:monitor',
-    '$ ddn-scripts peers:monitor -n 3',
-    '$ ddn-scripts peers:monitor -i 30',
-    '$ ddn-scripts peers:monitor -t main-tests',
+    '$ ddn-bin peers:monitor',
+    '$ ddn-bin peers:monitor -n 3',
+    '$ ddn-bin peers:monitor -i 30',
+    '$ ddn-bin peers:monitor -t main-tests',
   ]
 
   static flags = {

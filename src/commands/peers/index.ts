@@ -4,10 +4,10 @@ export default class Peers extends Command {
   static description = 'DDN多节点管理命令'
 
   static examples = [
-    '$ ddn-scripts peers:start',
-    '$ ddn-scripts peers:stop',
-    '$ ddn-scripts peers:clean',
-    '$ ddn-scripts peers:monitor',
+    '$ ddn-bin peers:start',
+    '$ ddn-bin peers:stop',
+    '$ ddn-bin peers:clean',
+    '$ ddn-bin peers:monitor',
   ]
 
   async run(): Promise<void> {

@@ -1,5 +1,5 @@
 
-# DDN Scripts
+# DDN Bin
 
 DDN开发脚本工具，用于管理 examples 目录下的多节点开发环境。该工具实现了原始 shell 脚本的所有功能，并进行了多项改进。
 
@@ -17,46 +17,20 @@ DDN开发脚本工具，用于管理 examples 目录下的多节点开发环境�
 
 ## 安装
 
-### 方法一：使用安装脚本
-
 ```bash
-$ npm install ddn-scripts --save
+$ npm install @ddn/bin --save
 
 # 或
-$ yarn add ddn-scripts -D
+$ yarn add @ddn/bin -D
 ```
 
-### 方法二：使用安装脚本
+开发：
 
 ```bash
-cd scripts/ddn-scripts
-chmod +x install.sh
-./install.sh
-```
-
-或者
-
-```bash
-cd scripts/ddn-scripts
-npm run install-local
-```
-
-### 方法三：手动安装
-
-```bash
-cd scripts/ddn-scripts
-npm install
-npm run build
-npm link
-```
-
-如果遇到模块加载错误，请尝试以下命令：
-
-```bash
-cd scripts/ddn-scripts
-npm install --save @oclif/core @oclif/plugin-help oclif
-npm run build
-npm link
+$ cd scripts/ddn-bin
+$ npm install --save @oclif/core @oclif/plugin-help oclif
+$ npm run build
+$ npm link
 ```
 
 ## 测试
@@ -64,19 +38,19 @@ npm link
 运行单元测试：
 
 ```bash
-npm test
+$ yarn test
 ```
 
 运行测试并监视文件变化：
 
 ```bash
-npm run test:watch
+$ yarn run test:watch
 ```
 
 生成测试覆盖率报告：
 
 ```bash
-npm run test:coverage
+$ yarn run test:coverage
 ```
 
 ## 配置说明
@@ -124,76 +98,76 @@ examples/
 
 ```bash
 # 启动5个节点（默认）
-ddn-scripts peers:start
+ddn-bin peers:start
 
 # 启动3个节点
-ddn-scripts peers:start -n 3
+ddn-bin peers:start -n 3
 
 # 强制启动（即使端口已被占用）
-ddn-scripts peers:start -f
+ddn-bin peers:start -f
 
 # 启动单个特定节点
-ddn-scripts peers:start -p 8001
+ddn-bin peers:start -p 8001
 
 # 在主网测试项目中启动节点
-ddn-scripts peers:start -t main-tests
+ddn-bin peers:start -t main-tests
 ```
 
 ### 停止节点
 
 ```bash
 # 停止所有节点
-ddn-scripts peers:stop
+$ ddn-bin peers:stop
 
 # 停止3个节点
-ddn-scripts peers:stop -n 3
+$ ddn-bin peers:stop -n 3
 
 # 强制停止（使用SIGKILL）
-ddn-scripts peers:stop -f
+$ ddn-bin peers:stop -f
 
 # 停止单个特定节点
-ddn-scripts peers:stop -p 8001
+$ ddn-bin peers:stop -p 8001
 
 # 停止主网测试项目中的节点
-ddn-scripts peers:stop -t main-tests
+$ ddn-bin peers:stop -t main-tests
 ```
 
 ### 清理节点数据
 
 ```bash
 # 清理所有节点的所有数据
-ddn-scripts peers:clean
+$ ddn-bin peers:clean
 
 # 只清理数据库
-ddn-scripts peers:clean -c db
+$ ddn-bin peers:clean -c db
 
 # 只清理日志
-ddn-scripts peers:clean -c log
+$ ddn-bin peers:clean -c log
 
 # 清理特定文件
-ddn-scripts peers:clean -f blockchain
+$ ddn-bin peers:clean -f blockchain
 
 # 清理特定节点
-ddn-scripts peers:clean -p 8001
+$ ddn-bin peers:clean -p 8001
 
 # 清理主网测试项目中的节点数据
-ddn-scripts peers:clean -t main-tests
+$ ddn-bin peers:clean -t main-tests
 ```
 
 ### 监控节点
 
 ```bash
 # 监控所有节点
-ddn-scripts peers:monitor
+$ ddn-bin peers:monitor
 
 # 设置监控间隔（秒）
-ddn-scripts peers:monitor -i 30
+$ ddn-bin peers:monitor -i 30
 
 # 启用自动重启
-ddn-scripts peers:monitor -r
+$ ddn-bin peers:monitor -r
 
 # 监控主网测试项目中的节点
-ddn-scripts peers:monitor -t main-tests
+$ ddn-bin peers:monitor -t main-tests
 ```
 
 
@@ -219,10 +193,10 @@ $ ddn d peerStat -H 117.78.45.44 -P 8000 -M
 
 ```bash
 # 构建
-npm run build
+$ yarn run build
 
 # 运行测试
-npm test
+$ yarn test
 ```
 
 ## FAQ

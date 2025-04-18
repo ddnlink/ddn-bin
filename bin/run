@@ -13,6 +13,6 @@ try {
   )
 } catch (error) {
   console.error('Error loading @oclif/core:', error.message)
-  console.error('Please run: cd scripts/ddn-scripts && npm install')
+  console.error('Please run: cd scripts/ddn-bin && npm install')
   process.exit(1)
 }

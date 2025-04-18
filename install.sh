@@ -1,12 +1,12 @@
 #!/bin/bash
 
-echo "Installing dependencies for ddn-scripts..."
+echo "Installing dependencies for ddn-bin..."
 npm install
 
-echo "Building ddn-scripts..."
+echo "Building ddn-bin..."
 npm run build
 
 echo "Creating symlink..."
 npm link
 
-echo "Installation complete. You can now use 'ddn-scripts' command."
+echo "Installation complete. You can now use 'ddn-bin' command."

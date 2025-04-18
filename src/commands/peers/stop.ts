@@ -6,10 +6,10 @@ export default class PeersStop extends BaseCommand {
   static description = '停止多个DDN节点'
 
   static examples = [
-    '$ ddn-scripts peers:stop',
-    '$ ddn-scripts peers:stop -n 3',
-    '$ ddn-scripts peers:stop -p 8001',
-    '$ ddn-scripts peers:stop -t main-tests',
+    '$ ddn-bin peers:stop',
+    '$ ddn-bin peers:stop -n 3',
+    '$ ddn-bin peers:stop -p 8001',
+    '$ ddn-bin peers:stop -t main-tests',
   ]
 
   static flags = {

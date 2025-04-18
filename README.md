@@ -15,47 +15,20 @@ Compared to the original shell scripts, this tool offers the following improveme
 
 ## Installation
 
-### Method 1: Using npm or yarn
-
 ```bash
-$ npm install ddn-scripts --save
+$ npm install @ddn/bin --save
 
 # or
-
-$ yarn add ddn-scripts -D
+$ yarn add @ddn/bin -D
 ```
 
-### Method 2: Using Installation Script
+development:
 
 ```bash
-cd scripts/ddn-scripts
-chmod +x install.sh
-./install.sh
-```
-
-Or
-
-```bash
-cd scripts/ddn-scripts
-npm run install-local
-```
-
-### Method 3: Manual Installation
-
-```bash
-cd scripts/ddn-scripts
-npm install
-npm run build
-npm link
-```
-
-If you encounter module loading errors, try the following commands:
-
-```bash
-cd scripts/ddn-scripts
-npm install --save @oclif/core @oclif/plugin-help oclif
-npm run build
-npm link
+$ cd scripts/ddn-bin
+$ npm install --save @oclif/core @oclif/plugin-help oclif
+$ npm run build
+$ npm link
 ```
 
 ## Testing
@@ -63,19 +36,19 @@ npm link
 Run unit tests:
 
 ```bash
-npm test
+$ yarn test
 ```
 
 Run tests with file watching:
 
 ```bash
-npm run test:watch
+$ yarn run test:watch
 ```
 
 Generate test coverage report:
 
 ```bash
-npm run test:coverage
+$ yarn run test:coverage
 ```
 
 ## Configuration
@@ -123,76 +96,76 @@ examples/
 
 ```bash
 # Start 5 nodes (default)
-ddn-scripts peers:start
+$ ddn-bin peers:start
 
 # Start 3 nodes
-ddn-scripts peers:start -n 3
+$ ddn-bin peers:start -n 3
 
 # Force start (even if ports are in use)
-ddn-scripts peers:start -f
+$ ddn-bin peers:start -f
 
 # Start a specific single node
-ddn-scripts peers:start -p 8001
+$ ddn-bin peers:start -p 8001
 
 # Start nodes in mainnet test project
-ddn-scripts peers:start -t main-tests
+$ ddn-bin peers:start -t main-tests
 ```
 
 ### Stopping Nodes
 
 ```bash
 # Stop all nodes
-ddn-scripts peers:stop
+$ ddn-bin peers:stop
 
 # Stop 3 nodes
-ddn-scripts peers:stop -n 3
+$ ddn-bin peers:stop -n 3
 
 # Force stop (using SIGKILL)
-ddn-scripts peers:stop -f
+$ ddn-bin peers:stop -f
 
 # Stop a specific single node
-ddn-scripts peers:stop -p 8001
+$ ddn-bin peers:stop -p 8001
 
 # Stop nodes in mainnet test project
-ddn-scripts peers:stop -t main-tests
+$ ddn-bin peers:stop -t main-tests
 ```
 
 ### Cleaning Node Data
 
 ```bash
 # Clean all data for all nodes
-ddn-scripts peers:clean
+$ ddn-bin peers:clean
 
 # Clean only databases
-ddn-scripts peers:clean -c db
+$ ddn-bin peers:clean -c db
 
 # Clean only logs
-ddn-scripts peers:clean -c log
+$ ddn-bin peers:clean -c log
 
 # Clean specific files
-ddn-scripts peers:clean -f blockchain
+$ ddn-bin peers:clean -f blockchain
 
 # Clean specific node
-ddn-scripts peers:clean -p 8001
+$ ddn-bin peers:clean -p 8001
 
 # Clean node data in mainnet test project
-ddn-scripts peers:clean -t main-tests
+$ ddn-bin peers:clean -t main-tests
 ```
 
 ### Monitoring Nodes
 
 ```bash
 # Monitor all nodes
-ddn-scripts peers:monitor
+$ ddn-bin peers:monitor
 
 # Set monitoring interval (seconds)
-ddn-scripts peers:monitor -i 30
+$ ddn-bin peers:monitor -i 30
 
 # Enable auto-restart
-ddn-scripts peers:monitor -r
+$ ddn-bin peers:monitor -r
 
 # Monitor nodes in mainnet test project
-ddn-scripts peers:monitor -t main-tests
+$ ddn-bin peers:monitor -t main-tests
 ```
 
 ## Node Inspection
@@ -216,10 +189,10 @@ View in browser: http://127.0.0.1:8001/api/blocks/getHeight
 
 ```bash
 # Build
-npm run build
+$ yarn run build
 
 # Run tests
-npm test
+$ yarn test
 ```
 
 ## FAQ

@@ -1,10 +1,10 @@
 {
-  "name": "ddn-scripts",
+  "name": "@ddn/bin",
   "version": "0.0.1",
-  "description": "DDN development scripts for managing multi-peer nodes",
+  "description": "DDN development tools for DDN Blockchain",
   "main": "index.js",
   "bin": {
-    "ddn-scripts": "./bin/run"
+    "ddn-bin": "./bin/run"
   },
   "files": [
     "/bin",
@@ -29,7 +29,7 @@
     "scripts",
     "development"
   ],
-  "author": "DDN Team",
+  "author": "Imfly",
   "license": "MIT",
   "dependencies": {
     "@oclif/core": "^2.0.0",
@@ -45,8 +45,8 @@
     "typescript": "^4.9.5"
   },
   "oclif": {
-    "bin": "ddn-scripts",
-    "dirname": "ddn-scripts",
+    "bin": "ddn-bin",
+    "dirname": "ddn-bin",
     "commands": "./dist/commands",
     "plugins": [
       "@oclif/plugin-help"

@@ -7,11 +7,11 @@ export default class PeersClean extends BaseCommand {
   static description = '清理多个DDN节点的数据和日志'
 
   static examples = [
-    '$ ddn-scripts peers:clean',
-    '$ ddn-scripts peers:clean -n 3',
-    '$ ddn-scripts peers:clean -c db',
-    '$ ddn-scripts peers:clean -f blockchain',
-    '$ ddn-scripts peers:clean -t main-tests',
+    '$ ddn-bin peers:clean',
+    '$ ddn-bin peers:clean -n 3',
+    '$ ddn-bin peers:clean -c db',
+    '$ ddn-bin peers:clean -f blockchain',
+    '$ ddn-bin peers:clean -t main-tests',
   ]
 
   static flags = {

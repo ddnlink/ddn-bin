@@ -7,11 +7,11 @@ export default class PeersStart extends BaseCommand {
   static description = '启动多个DDN节点'
 
   static examples = [
-    '$ ddn-scripts peers:start',
-    '$ ddn-scripts peers:start -n 3',
-    '$ ddn-scripts peers:start -n 3 -f',
-    '$ ddn-scripts peers:start -p 8001',
-    '$ ddn-scripts peers:start -t main-tests',
+    '$ ddn-bin peers:start',
+    '$ ddn-bin peers:start -n 3',
+    '$ ddn-bin peers:start -n 3 -f',
+    '$ ddn-bin peers:start -p 8001',
+    '$ ddn-bin peers:start -t main-tests',
   ]
 
   static flags = {
