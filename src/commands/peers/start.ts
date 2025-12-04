@@ -152,17 +152,13 @@ export default class PeersStart extends BaseCommand {
   }
 
   private generateConfig(port: number, p2pPort: number, useGenesis: boolean, projectType: string): string {
-    const peers = []
-    // 添加其他节点作为种子节点 - 使用实际的节点数量
+    // 生成对等节点列表 - 使用与 updateConfig 一致的格式
+    const peersList: string[] = []
     for (let i = 1; i <= this.actualPeerCount; i++) {
       const httpPort = BaseCommand.basePort + i - 1
       const peerP2pPort = BaseCommand.p2pBasePort + i - 1
       if (httpPort !== port) {
-        peers.push({
-          ip: '127.0.0.1',
-          port: peerP2pPort,
-          httpPort: httpPort
-        })
+        peersList.push(`{ ip: '127.0.0.1', port: '${peerP2pPort}', httpPort: '${httpPort}' }`)
       }
     }
 
@@ -199,7 +195,9 @@ export default class PeersStart extends BaseCommand {
   publicIp: '127.0.0.1',
   logLevel: 'debug',${additionalConfig}
   peers: {
-    list: ${JSON.stringify(peers, null, 2)},
+    list: [
+      ${peersList.join(',\n      ')}
+    ],
     blackList: [],
     options: {
       timeout: 4000
@@ -281,7 +279,7 @@ export default class PeersStart extends BaseCommand {
     options: {
       timeout: 4000
     }
-  `
+  }`
 
       configContent = configContent.replace(peersRegex, peersReplacement)
 

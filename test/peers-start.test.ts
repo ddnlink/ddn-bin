@@ -147,6 +147,7 @@ describe('PeersStart Command', () => {
       jest.spyOn(command as any, 'getPeerDir').mockReturnValue('/test/peer-8001')
       jest.spyOn(command as any, 'copyTemplateDir').mockReturnValue(true)
       jest.spyOn(command as any, 'generateConfig').mockReturnValue('module.exports = {}')
+      jest.spyOn(command as any, 'updateConfig').mockReturnValue(true)
       jest.spyOn(command as any, 'distributeSecrets').mockReturnValue(true)
       jest.spyOn(command as any, 'checkPeerHealth').mockResolvedValue(true)
 

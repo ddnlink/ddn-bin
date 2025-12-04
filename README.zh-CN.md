@@ -74,7 +74,6 @@ $ yarn run test:coverage
 
 ## 目录结构
 
-```
 examples/
 ├── fun-tests/
 │   ├── config/
@@ -94,23 +93,24 @@ examples/
 │   └── ...
 └── ...
 
+
 ### 启动多个节点
 
 ```bash
 # 启动5个节点（默认）
-ddn-bin peers:start
+$ ddn-bin peers:start
 
 # 启动3个节点
-ddn-bin peers:start -n 3
+$ ddn-bin peers:start -n 3
 
 # 强制启动（即使端口已被占用）
-ddn-bin peers:start -f
+$ ddn-bin peers:start -f
 
 # 启动单个特定节点
-ddn-bin peers:start -p 8001
+$ ddn-bin peers:start -p 8001
 
 # 在主网测试项目中启动节点
-ddn-bin peers:start -t main-tests
+$ ddn-bin peers:start -t main-tests
 ```
 
 ### 停止节点
@@ -182,8 +182,8 @@ $ tail -f ./logs/debug.log
 $ tail -f ./logs/dvm.log
 
 # 查看节点状态
-$ ddn d peerStat -H 127.0.0.1 -P 8001
-$ ddn d peerStat -H 117.78.45.44 -P 8000 -M
+$ ddn p stat -H 127.0.0.1 -P 8001
+$ ddn p stat -H 117.78.45.44 -P 8000 -M
 ```
 
 查看浏览器 http://127.0.0.1:8001/api/blocks/getHeight

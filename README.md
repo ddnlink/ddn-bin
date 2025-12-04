@@ -179,8 +179,8 @@ $ tail -f ./logs/debug.log
 $ tail -f ./logs/dvm.log
 
 # View node status
-$ ddn d peerStat -H 127.0.0.1 -P 8001
-$ ddn d peerStat -H 117.78.45.44 -P 8000 -M
+$ ddn p stat -H 127.0.0.1 -P 8001
+$ ddn p stat -H 117.78.45.44 -P 8000 -M
 ```
 
 View in browser: http://127.0.0.1:8001/api/blocks/getHeight

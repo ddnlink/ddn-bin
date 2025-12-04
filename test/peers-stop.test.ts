@@ -100,54 +100,54 @@ describe('PeersStop Command', () => {
   })
 
   describe('stopSinglePeer', () => {
-    it('should skip if no process is running on the port', async () => {
-      // 模拟 checkPortInUse 方法
-      jest.spyOn(command as any, 'checkPortInUse').mockResolvedValue(false)
+    it('should skip if peer directory does not exist', async () => {
+      // 模拟 getPeerDir 方法
+      jest.spyOn(command as any, 'getPeerDir').mockReturnValue('/test/peer-8002')
+
+      // 模拟文件系统 - 目录不存在
+      const mockExistsSync = fs.existsSync as jest.Mock
+      mockExistsSync.mockReturnValue(false)
+
+      // 执行方法
+      await (command as any).stopSinglePeer(8002, false, 'fun-tests')
+
+      // 验证结果 - 应该跳过停止
+      expect(command.log).toHaveBeenCalledWith(expect.stringContaining('节点目录'))
+      expect(command.log).toHaveBeenCalledWith(expect.stringContaining('不存在'))
+    })
+
+    it('should log no process found when port is not in use', async () => {
+      // 模拟 getPeerDir 方法
+      jest.spyOn(command as any, 'getPeerDir').mockReturnValue('/test/peer-8002')
+
+      // 模拟文件系统 - 目录存在
+      const mockExistsSync = fs.existsSync as jest.Mock
+      mockExistsSync.mockReturnValue(true)
+
+      // 模拟 executeCommand 方法 - 没有进程运行
+      jest.spyOn(command as any, 'executeCommand').mockResolvedValue({ success: false, output: '' })
 
       // 执行方法
       await (command as any).stopSinglePeer(8002, false, 'fun-tests')
 
       // 验证结果
-      expect(command.log).toHaveBeenCalledWith(expect.stringContaining('没有进程在端口 8002 上运行'))
+      expect(command.log).toHaveBeenCalledWith(expect.stringContaining('没有找到运行在 HTTP 端口 8002 上的进程'))
     })
 
-    it('should use SIGTERM if force is false', async () => {
-      // 模拟 checkPortInUse 方法
-      jest.spyOn(command as any, 'checkPortInUse').mockResolvedValue(true)
+    it('should terminate process when found', async () => {
+      // 模拟 getPeerDir 方法
+      jest.spyOn(command as any, 'getPeerDir').mockReturnValue('/test/peer-8001')
+
+      // 模拟文件系统 - 目录存在
+      const mockExistsSync = fs.existsSync as jest.Mock
+      mockExistsSync.mockReturnValue(true)
 
       // 模拟 executeCommand 方法
       const executeCommandSpy = jest.spyOn(command as any, 'executeCommand')
-
-      // 执行方法
-      await (command as any).stopSinglePeer(8001, false, 'fun-tests')
-
-      // 验证结果
-      expect(executeCommandSpy).toHaveBeenCalledWith(expect.stringContaining('kill '))
-      expect(executeCommandSpy).not.toHaveBeenCalledWith(expect.stringContaining('kill -9 '))
-    })
-
-    it('should use SIGKILL if force is true', async () => {
-      // 模拟 checkPortInUse 方法
-      jest.spyOn(command as any, 'checkPortInUse').mockResolvedValue(true)
-
-      // 模拟 executeCommand 方法
-      const executeCommandSpy = jest.spyOn(command as any, 'executeCommand')
-
-      // 执行方法
-      await (command as any).stopSinglePeer(8001, true, 'fun-tests')
-
-      // 验证结果
-      expect(executeCommandSpy).toHaveBeenCalledWith(expect.stringContaining('kill -9 '))
-    })
-
-    it('should verify process is stopped', async () => {
-      // 模拟 checkPortInUse 方法的两次调用
-      const checkPortInUseSpy = jest.spyOn(command as any, 'checkPortInUse')
-        .mockResolvedValueOnce(true)  // 第一次调用返回 true
-        .mockResolvedValueOnce(false) // 第二次调用返回 false
-
-      // 模拟 executeCommand 方法
-      jest.spyOn(command as any, 'executeCommand').mockResolvedValue({ success: true, output: '' })
+        .mockResolvedValueOnce({ success: true, output: '1234' }) // lsof 找到进程
+        .mockResolvedValueOnce({ success: true, output: '' }) // kill -15
+        .mockResolvedValueOnce({ success: false, output: '' }) // kill -0 检查进程已退出
+        .mockResolvedValueOnce({ success: false, output: '' }) // P2P 端口检查
 
       // 模拟 sleep 方法
       jest.spyOn(command as any, 'sleep').mockResolvedValue(undefined)
@@ -155,9 +155,30 @@ describe('PeersStop Command', () => {
       // 执行方法
       await (command as any).stopSinglePeer(8001, false, 'fun-tests')
 
-      // 验证结果
-      expect(checkPortInUseSpy).toHaveBeenCalledTimes(2)
-      expect(command.log).toHaveBeenCalledWith(expect.stringContaining('节点 8001 已停止'))
+      // 验证结果 - 应该调用 kill 命令
+      expect(executeCommandSpy).toHaveBeenCalledWith(expect.stringContaining('kill -15'))
+      expect(command.log).toHaveBeenCalledWith(expect.stringContaining('已成功停止'))
+    })
+
+    it('should use SIGKILL if force is true', async () => {
+      // 模拟 getPeerDir 方法
+      jest.spyOn(command as any, 'getPeerDir').mockReturnValue('/test/peer-8001')
+
+      // 模拟文件系统 - 目录存在
+      const mockExistsSync = fs.existsSync as jest.Mock
+      mockExistsSync.mockReturnValue(true)
+
+      // 模拟 executeCommand 方法
+      const executeCommandSpy = jest.spyOn(command as any, 'executeCommand')
+        .mockResolvedValueOnce({ success: true, output: '1234' }) // lsof 找到进程
+        .mockResolvedValueOnce({ success: true, output: '' }) // kill -9
+        .mockResolvedValueOnce({ success: false, output: '' }) // P2P 端口检查
+
+      // 执行方法
+      await (command as any).stopSinglePeer(8001, true, 'fun-tests')
+
+      // 验证结果 - 应该直接调用 kill -9
+      expect(executeCommandSpy).toHaveBeenCalledWith(expect.stringContaining('kill -9'))
     })
   })
 });

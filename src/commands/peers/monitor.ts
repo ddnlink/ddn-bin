@@ -110,19 +110,23 @@ export default class PeersMonitor extends BaseCommand {
 
       try {
         const response = JSON.parse(output)
-        const height = response.height
-        const blockTime = response.blockTime
-        const now = Math.floor(Date.now() / 1000)
-
-        if (now - blockTime > 300) {
-          this.log(`节点 ${port} 超过5分钟未产生新区块，当前高度: ${height}`)
+        
+        // 检查 response 对象是否包含必要的字段
+        if (response === undefined || response === null) {
+          this.log(`节点 ${port} 返回了空响应`)
           return false
         }
-
-        this.log(`节点 ${port} 状态正常: 高度=${height}, 最后区块时间=${new Date(blockTime * 1000).toISOString()}`)
+        
+        // 检查 success 字段是否为 true
+        if (response.success !== true) {
+          this.log(`节点 ${port} 返回了失败响应: ${JSON.stringify(response)}`)
+          return false
+        }
+        delete response.success
+        this.log(`节点 ${port} 状态正常: ${JSON.stringify(response)}`)
         return true
       } catch (error) {
-        this.log(`节点 ${port} 返回的数据无法解析: ${output}`)
+        this.log(`节点 ${port} 返回的数据无法解析: ${error}`)
         return false
       }
     } catch (error) {

@@ -11,9 +11,6 @@ export default class Peers extends Command {
   ]
 
   async run(): Promise<void> {
-    const { help } = require('@oclif/core').Flags
-    const { flags } = await this.parse(Peers)
-    
     this.log('DDN多节点管理工具')
     this.log('')
     this.log('可用命令:')
